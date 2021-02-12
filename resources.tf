@@ -71,9 +71,15 @@ resource "aws_security_group" "aws-sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["52.212.71.147/32"]
   }
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["49.207.199.95/32"]
+  }
   # HTTP access from anywhere
   ingress {
     from_port   = 80
@@ -84,9 +90,15 @@ resource "aws_security_group" "aws-sg" {
 
   # outbound internet access
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -126,7 +138,7 @@ depends_on = [aws_instance.instance1]
   connection {
       type        = "ssh"
       host        = aws_instance.instance1.public_ip
-      user        = var.ssh_user
+      user        = "ec2-user"
       private_key = file(var.private_key_path)
     }
 
@@ -134,8 +146,8 @@ depends_on = [aws_instance.instance1]
 
   provisioner "local-exec" {
 
-    working_dir = "./ansible_code"
-    command = "ansible-playbook -vD newplaybook.yml"
+
+    command = "ansible-playbook -vD newplaybook.yaml"
   }
 }
 

@@ -8,7 +8,7 @@ variable "private_key_path"{
 
 variable "ssh_user"{
   type = string
-  default = "centos" 
+  default = "ec2-user" 
 }
 
 variable "key_name"{

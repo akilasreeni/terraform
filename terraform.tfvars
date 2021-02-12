@@ -1,3 +1,3 @@
-key_name = "MyKeyPair"                                                                                                                                                                                                                                                                                                                                                                                                                private_key_path = "/home/vagrant/terraform_samples/MyKeyPair.pem"
-ssh_user = "centos"
+key_name = "terraform"
+ssh_user = "ec2-user"
 private_key_path = "/home/centos/terraform_samples/terraform.pem"
